@@ -1,0 +1,36 @@
+name: Build & Release DMG
+
+on:
+  push:
+    tags:
+      - 'v*' # Trigger on any tag starting with v (e.g. v1.0.0)
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Set up Swift
+      uses: swift-actions/setup-swift@v1
+
+    - name: Build Arca GUI
+      run: |
+        chmod +x build_gui.sh
+        ./build_gui.sh
+
+    - name: Package DMG
+      run: |
+        chmod +x 04_create_dmg.sh
+        ./04_create_dmg.sh Arca.app
+        # 04_create_dmg.sh outputs to ~/Desktop/Arca.dmg
+        mv ~/Desktop/Arca.dmg ./Arca.dmg
+
+    - name: Upload Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: Arca.dmg
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
