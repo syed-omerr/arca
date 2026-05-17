@@ -43,3 +43,14 @@ Because the generated apps are signed ad-hoc, macOS Gatekeeper may show a "damag
 - **Emulation**: Google Android Emulator (Headless Gfxstream)
 - **Input Bridge**: Persistent ADB Shell Pipe (`input tap`)
 - **Display Streaming**: `adb exec-out screencap` buffered to `NSImage`
+
+## 🛠 Troubleshooting & Known Issues
+- **Google Play Services:** Arca currently uses the AOSP (Android Open Source Project) emulator image for maximum speed and minimum bloat. APKs that strictly require Google Play Services to function may crash or fail to load.
+- **"Operation Not Permitted":** If the wrapper script fails to read your APK, ensure the `Arca.app` has been granted access to your Downloads folder or Desktop in your Mac's Privacy & Security settings.
+- **Performance:** For heavily graphic-intensive games, the `screencap` buffer may introduce minor visual tearing. 
+
+## 🤝 Contributing & License
+Arca is open-source under the **MIT License**. We welcome contributions! If you're a developer:
+1. Fork the repository.
+2. Build the `Arca.app` shell locally using `./build_gui.sh`.
+3. Submit a Pull Request with architectural improvements (such as integrating `gRPC` for streaming or sandboxing the emulator further).

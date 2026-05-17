@@ -1,0 +1,8 @@
+.DS_Store
+*.app/
+*.dmg
+build/
+DerivedData/
+tmp/
+*.icns
+*.iconset/
